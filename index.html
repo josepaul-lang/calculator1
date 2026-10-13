@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Sarcastic Calculator - Real mathematical calculations with witty roasts, meme reactions, and comedic sound effects.">
+  <title>The Sarcastic Calculator 💀🔥 | Math is easy. Your dignity is optional.</title>
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20%220%22%20100%20100%22><text y=%22.9em%22 font-size=%2290%22>💀</text></svg>">
+</head>
+<body>
+
+  <!-- INTRO MODAL SCREEN -->
+  <div class="intro-modal-backdrop" id="introModal">
+    <div class="intro-card glass-panel">
+      <div class="intro-badge">⚠️ WARNING: BRUTAL HONESTY INSIDE</div>
+      <h1 class="intro-title">THE SARCASTIC CALCULATOR</h1>
+      <p class="intro-quote">"Welcome to the calculator that questions your intelligence."</p>
+      <p class="intro-disclaimer">
+        Performs 100% mathematically accurate calculations while roasting your inability to do kindergarten math in your head.
+      </p>
+      <button class="btn-roast-start" id="btnRoastStart">ROAST ME 🔥</button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-icon">💀</span>
+      <div>
+        <h1 class="brand-name">THE SARCASTIC CALCULATOR</h1>
+        <p class="brand-tagline">Math is easy. Your dignity is optional. (Voice Enabled 🗣️)</p>
+      </div>
+    </div>
+    <div class="header-status-badge">
+      <span class="status-dot"></span>
+      <span id="statusIndicator">Mode: Savage 💀</span>
+    </div>
+  </header>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="main-layout">
+    
+    <!-- LEFT SIDE: CALCULATOR INTERFACE -->
+    <section class="calculator-container glass-panel" aria-label="Calculator Interface">
+      <div class="calc-top-bar">
+        <span class="calc-title">Quantum Roast Core v2.0</span>
+        <button class="copy-btn" id="btnCopyResult" title="Copy result to clipboard">COPY</button>
+      </div>
+
+      <!-- Display Screen -->
+      <div class="calc-screen" id="calcScreen">
+        <div class="screen-expression" id="screenExpr" placeholder=""></div>
+        <div class="screen-result-wrapper">
+          <div class="screen-result" id="screenResult">0</div>
+        </div>
+      </div>
+
+      <!-- Keypad -->
+      <div class="calc-keypad" id="calcKeypad">
+        <!-- Row 1 -->
+        <button class="key-btn key-action" data-action="clear" id="keyClear" title="Clear All (Escape)">AC</button>
+        <button class="key-btn key-action" data-action="backspace" id="keyBackspace" title="Backspace">⌫</button>
+        <button class="key-btn key-fn" data-key="%" title="Modulo / Percent">%</button>
+        <button class="key-btn key-operator" data-key="/" title="Divide">÷</button>
+
+        <!-- Row 2 -->
+        <button class="key-btn" data-key="7">7</button>
+        <button class="key-btn" data-key="8">8</button>
+        <button class="key-btn" data-key="9">9</button>
+        <button class="key-btn key-operator" data-key="*" title="Multiply">×</button>
+
+        <!-- Row 3 -->
+        <button class="key-btn" data-key="4">4</button>
+        <button class="key-btn" data-key="5">5</button>
+        <button class="key-btn" data-key="6">6</button>
+        <button class="key-btn key-operator" data-key="-" title="Minus">−</button>
+
+        <!-- Row 4 -->
+        <button class="key-btn" data-key="1">1</button>
+        <button class="key-btn" data-key="2">2</button>
+        <button class="key-btn" data-key="3">3</button>
+        <button class="key-btn key-operator" data-key="+" title="Plus">+</button>
+
+        <!-- Row 5 -->
+        <button class="key-btn key-fn" data-key="(" title="Open bracket">(</button>
+        <button class="key-btn" data-key="0">0</button>
+        <button class="key-btn key-fn" data-key=")" title="Close bracket">)</button>
+        <button class="key-btn" data-key=".">.</button>
+
+        <!-- Bottom row: calculate spanning -->
+        <button class="key-btn key-fn" data-action="negate" title="Negate number (±)">±</button>
+        <button class="key-btn key-equals" data-action="calculate" id="keyEquals" style="grid-column: span 3;" title="Calculate (Enter)">=</button>
+      </div>
+    </section>
+
+    <!-- RIGHT SIDE: MEME REACTIONS & ROAST MACHINE -->
+    <section class="roast-meme-container" aria-label="Reaction and Roast Center">
+      
+      <!-- Meme Media Viewer -->
+      <div class="meme-card glass-panel">
+        <div class="meme-top-bar">
+          <span class="meme-card-title">Meme Reaction Engine</span>
+          <div class="meme-controls">
+            <button class="btn-icon" id="btnToggleSound" title="Toggle audio">🔊 SFX</button>
+            <input type="range" min="0" max="1" step="0.05" value="0.5" class="volume-slider" id="volumeSlider" title="Audio volume">
+            <button class="btn-icon" id="btnReplayReaction" title="Replay current reaction">🔄 Replay</button>
+          </div>
+        </div>
+        
+        <!-- Media Visual / Animation Display Container -->
+        <div id="memeContainer">
+          <div class="meme-display-card">
+            <div class="meme-visual-box" id="memeVisualCanvasBox">
+              <canvas id="memeCanvas" width="380" height="230"></canvas>
+            </div>
+            <div class="meme-meta">
+              <div class="meme-title-badge">AWAITING VICTIM ⏳</div>
+              <p class="meme-caption">Perform an equation to receive digital humiliation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sarcastic Roast Box -->
+      <div class="roast-card glass-panel">
+        <div class="roast-badge-row">
+          <span class="roast-badge" id="roastBadge">READY TO JUDGE 💀</span>
+        </div>
+        <p class="roast-quote-text" id="roastText">
+          "Welcome to the calculator that questions your intelligence."
+        </p>
+        <div class="roast-actions">
+          <button class="btn-roast-again" id="btnRoastAgain">🔥 Roast Me Again</button>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- BOTTOM PANELS: HISTORY, PREFERENCES & STATISTICS -->
+  <section class="bottom-section">
+    
+    <!-- Calculation History -->
+    <div class="panel-card glass-panel">
+      <div class="panel-header">
+        <span class="panel-title">Calculation History</span>
+        <button class="copy-btn" id="btnClearHistory">Clear</button>
+      </div>
+      <ul class="history-list" id="historyList">
+        <li class="empty-history">No calculations recorded yet. Go embarrass yourself.</li>
+      </ul>
+    </div>
+
+    <!-- Roast & Media Preferences -->
+    <div class="panel-card glass-panel">
+      <div class="panel-header">
+        <span class="panel-title">Roast Settings</span>
+      </div>
+      <div class="settings-group">
+        <div class="setting-row">
+          <label for="intensitySelect">Roast Intensity</label>
+          <select id="intensitySelect" class="setting-select">
+            <option value="friendly">1. Friendly (Mercy Mode 😇)</option>
+            <option value="sarcastic">2. Sarcastic 😏</option>
+            <option value="savage" selected>3. Savage 💀</option>
+            <option value="unhinged">4. Absolutely Unhinged 🔥</option>
+            <option value="off">Mute Roasts 🏳️</option>
+          </select>
+        </div>
+        <div class="setting-row">
+          <label for="chaosToggle">Maximum Chaos Mode</label>
+          <label class="toggle-switch">
+            <input type="checkbox" id="chaosToggle">
+            <span class="slider-round"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Session Stats -->
+    <div class="panel-card glass-panel">
+      <div class="panel-header">
+        <span class="panel-title">Ego Damage Stats</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-num" id="statCalcs">0</div>
+          <div class="stat-label">Calculations</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="statRoasts">0</div>
+          <div class="stat-label">Roasts Endured</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="statErrors">0</div>
+          <div class="stat-label">Syntax Fails</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="statEggs">0</div>
+          <div class="stat-label">Easter Eggs</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    THE SARCASTIC CALCULATOR &bull; Powered by Pure Vanilla Web Technologies, Web Audio API & Pure Comedy.
+  </footer>
+
+  <!-- Main ES Module Script -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
